@@ -1,0 +1,68 @@
+<html class="yui3-js-enabled">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> YUI Candlestick Chart Example</title>
+  
+  <script type="text/javascript" src="http://yui.yahooapis.com/3.10.0/build/yui/yui.js"></script>
+  <style type="text/css">
+        #mychart {
+        width: auto;
+        height: 400px;
+    }
+  </style>
+</head>
+<body>
+<div id="mychart"></div>
+  
+<script type="text/javascript">
+    /*
+    YUI_config = {
+    filter: 'debug',
+    useConsoleOutput: true
+    };
+    */
+
+    var myDataValues = [
+        {date:"5/1/2010", open:100, high: 220, low:50, close:70 },
+        {date:"5/2/2010", open:123, high: 250, low:50, close:10 },
+        {date:"5/3/2010", open:100, high: 207, low:150, close:150 },
+        {date:"5/4/2010", open:30, high: 230, low:50, close:120 },
+        {date:"5/5/2010", open:100, high: 200, low:50, close:90 },
+    ];
+
+    YUI().use(['series-candlestick', 'charts'], function(Y) {
+
+    var myAxes = {
+        dateRange:{
+            keys:["date"],
+            position:"bottom",
+            type:"category",
+        },
+        candle:{
+            keys: ["open","high","low","close"],
+            type:"numeric"
+        }
+    };
+
+    var seriesCollection = [
+        {
+            type:"candlestick",
+            xKey: 'date',
+            yAxis: "candle",
+            // yKey: ["open","high","low","close"]  ==> WONT WORK!!
+        }
+    ];
+
+    var mychart = new Y.Chart({
+        dataProvider: myDataValues,
+        render: "#mychart",
+        axes: myAxes,
+        seriesKeys: [["open","high","low","close"]],  // THIS IS THE KEY POINT!!!
+        seriesCollection: seriesCollection
+    });
+
+});
+</script>
+
+</body></html>
+
